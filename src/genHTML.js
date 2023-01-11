@@ -1,20 +1,88 @@
-function htmlGen() {
-  return `<!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="reset.css" />
-        <link rel="stylesheet" href="styles.css" />
-    
-        <title>Document</title>
-      </head>
-      <body>
-        <nav>
-          <header><h1>Team</h1></header>
-        </nav>
-      </body>
-    </html>`;
+function managerCardGen() {
+  return `      <div class="card">
+  <div class="card-header">
+    <ul>
+      <li><h2>${staffData[0].name}</h2></li>
+      <br />
+      <li><h3>${staffData[0].role}</h3></li>
+    </ul>
+  </div>
+  <div class="card-content">
+    <ul class="container">
+      <li><h4>Employee ID : ${staffData[0].id}</h4></li>
+      <br />
+      <br />
+      <li>
+        <h4>
+          Email Adress :
+          <a href="mailto:${staffData[0].email}">email</a>
+        </h4>
+      </li>
+      <br />
+      <br />
+      <li><h4>Office Number :</h4></li>
+    </ul>
+  </div>
+</div>`;
 }
-module.exports = htmlGen();
+function engineerCardGen() {
+  return `      <div class="card">
+  <div class="card-header">
+    <ul>
+      <li><h2>Michael</h2></li>
+      <br />
+      <li><h3>Intern</h3></li>
+    </ul>
+  </div>
+  <div class="card-content">
+    <ul class="container">
+      <li><h4>Employee ID :</h4></li>
+      <br />
+      <br />
+      <li>
+        <h4>
+          Email Adress :
+          <a href="mailto:mohamedfarah0508@gmail.com">email</a>
+        </h4>
+      </li>
+      <br />
+      <br />
+      <li><h4>School :</h4></li>
+    </ul>
+  </div>
+</div>`;
+}
+function internCardGen() {
+  return `      <div class="card">
+  <div class="card-header">
+    <ul>
+      <li><h2>Sophia</h2></li>
+      <br />
+      <li><h3>Engineer</h3></li>
+    </ul>
+  </div>
+  <div class="card-content">
+    <ul class="container">
+      <li><h4>Employee ID :</h4></li>
+      <br />
+      <br />
+      <li>
+        <h4>
+          Email Adress :
+          <a href="mailto:mohamedfarah0508@gmail.com">email</a>
+        </h4>
+      </li>
+      <br />
+      <br />
+      <li>
+        <h4><a href="https://github.com/moxamadfarax">github</a></h4>
+      </li>
+    </ul>
+  </div>
+</div>`;
+}
+module.exports = {
+  managerCardGen,
+  engineerCardGen,
+  internCardGen,
+};

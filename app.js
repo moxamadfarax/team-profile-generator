@@ -7,7 +7,9 @@ const Engineer = require("./lib/engineer");
 const Intern = require("./lib/intern");
 const Manager = require("./lib/manager");
 
-let staffData = [];
+let managerData = [];
+let internData = [];
+let engineerData = [];
 
 function questions() {
   inquirer
@@ -48,7 +50,7 @@ function questions() {
         answers.managerEmail,
         answers.managerOfficeNum
       );
-      staffData.push(newManager);
+      managerData.push(newManager);
       if (answers.decision === "Engineer") {
         engineerQuestions();
       } else if (answers.decision === "Intern") {
@@ -86,7 +88,7 @@ function engineerQuestions() {
         message:
           "Choose which employee you would like to add. If none, then make your team.",
         name: "decision",
-        default: 0,
+        default: 2,
         choices: ["Engineer", "Intern", "Make Team"],
       },
     ])
@@ -97,7 +99,7 @@ function engineerQuestions() {
         answers.engineerEmail,
         answers.engineerGithub
       );
-      staffData.push(newEngineer);
+      engineerData.push(newEngineer);
       if (answers.decision === "Engineer") {
         engineerQuestions();
       } else if (answers.decision === "Intern") {
@@ -135,7 +137,7 @@ function internQuestions() {
         message:
           "Choose which employee you would like to add. If none, then make your team.",
         name: "decision",
-        default: 0,
+        default: 2,
         choices: ["Engineer", "Intern", "Make Team"],
       },
     ])
@@ -146,7 +148,7 @@ function internQuestions() {
         answers.internEmail,
         answers.internSchool
       );
-      staffData.push(newIntern);
+      internData.push(newIntern);
       if (answers.decision === "Engineer") {
         engineerQuestions();
       } else if (answers.decision === "Intern") {
@@ -158,6 +160,11 @@ function internQuestions() {
 }
 
 function dataPush() {
-  console.log(staffData);
+  console.log(managerData);
+  console.log(internData);
+  console.log(engineerData);
+  console.log(managerData.length);
+  console.log(internData.length);
+  console.log(engineerData.length);
 }
 questions();

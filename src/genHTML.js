@@ -17,4 +17,4 @@ function htmlGen() {
       </body>
     </html>`;
 }
-module.export = htmlGen();
+module.exports = htmlGen();

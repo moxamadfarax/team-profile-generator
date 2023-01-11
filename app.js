@@ -7,11 +7,7 @@ const Engineer = require("./lib/engineer");
 const Intern = require("./lib/intern");
 const Manager = require("./lib/manager");
 
-let info = {
-  managerData: [],
-  engineerData: [],
-  internData: [],
-};
+let staffData = [];
 
 function questions() {
   inquirer
@@ -46,14 +42,19 @@ function questions() {
       },
     ])
     .then((answers) => {
+      const newManager = new Manager(
+        answers.managerName,
+        answers.managerId,
+        answers.managerEmail,
+        answers.managerOfficeNum
+      );
+      staffData.push(newManager);
       if (answers.decision === "Engineer") {
-        console.log("Engineer");
         engineerQuestions();
       } else if (answers.decision === "Intern") {
-        console.log("Intern");
         internQuestions();
       } else if (answers.decision === "Make Team") {
-        console.log("Make Team");
+        dataPush();
       }
     });
 }
@@ -84,13 +85,26 @@ function engineerQuestions() {
         type: "list",
         message:
           "Choose which employee you would like to add. If none, then make your team.",
-        name: "addEmployee",
+        name: "decision",
         default: 0,
         choices: ["Engineer", "Intern", "Make Team"],
       },
     ])
     .then((answers) => {
-      console.log(answers.engineer);
+      const newEngineer = new Engineer(
+        answers.engineerName,
+        answers.engineerId,
+        answers.engineerEmail,
+        answers.engineerGithub
+      );
+      staffData.push(newEngineer);
+      if (answers.decision === "Engineer") {
+        engineerQuestions();
+      } else if (answers.decision === "Intern") {
+        internQuestions();
+      } else if (answers.decision === "Make Team") {
+        dataPush();
+      }
     });
 }
 function internQuestions() {
@@ -120,13 +134,30 @@ function internQuestions() {
         type: "list",
         message:
           "Choose which employee you would like to add. If none, then make your team.",
-        name: "addEmployee",
+        name: "decision",
         default: 0,
         choices: ["Engineer", "Intern", "Make Team"],
       },
     ])
     .then((answers) => {
-      console.log(answers.engineer);
+      const newIntern = new Intern(
+        answers.internName,
+        answers.internId,
+        answers.internEmail,
+        answers.internSchool
+      );
+      staffData.push(newIntern);
+      if (answers.decision === "Engineer") {
+        engineerQuestions();
+      } else if (answers.decision === "Intern") {
+        internQuestions();
+      } else if (answers.decision === "Make Team") {
+        dataPush();
+      }
     });
+}
+
+function dataPush() {
+  console.log(staffData);
 }
 questions();

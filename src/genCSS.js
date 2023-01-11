@@ -62,4 +62,4 @@ function cssGen() {
     border-bottom: 1px solid #000000;
   }`;
 }
-module.exports = cssGen;
+module.exports = cssGen();

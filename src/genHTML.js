@@ -25,7 +25,7 @@ function managerCardGen(name, role, id, email, officeNum) {
   </div>
 </div>`;
 }
-function engineerCardGen(name, role, id, github) {
+function engineerCardGen(name, role, id, email, github) {
   return `      <div class="card">
   <div class="card-header">
     <ul>
@@ -61,7 +61,7 @@ function engineerCardGen(name, role, id, github) {
   </div>
 </div>`;
 }
-function internCardGen(name, role, id, school) {
+function internCardGen(name, role, id, email, school) {
   return `      <div class="card">
   <div class="card-header">
     <ul>

@@ -56,6 +56,19 @@ function questions() {
       } else if (answers.decision === "Intern") {
         internQuestions();
       } else if (answers.decision === "Make Team") {
+        fs.writeFile(
+          "./dist/index.html",
+          htmlGen.managerCardGen(
+            answers.managerName,
+            answers.managerId,
+            answers.managerEmail,
+            answers.managerOfficeNum
+          ),
+          (err) =>
+            err
+              ? console.error(err)
+              : console.log("HTML File has been created!")
+        );
       }
     });
 }
@@ -104,6 +117,19 @@ function engineerQuestions() {
       } else if (answers.decision === "Intern") {
         internQuestions();
       } else if (answers.decision === "Make Team") {
+        fs.appendFile(
+          "./dist/index.html",
+          htmlGen.engineerCardGen(
+            answers.engineerName,
+            answers.engineerId,
+            answers.engineerEmail,
+            answers.engineerGithub
+          ),
+          (err) => {
+            if (err) throw err;
+            console.log("Data was appended to file!");
+          }
+        );
       }
     });
 }
@@ -152,38 +178,21 @@ function internQuestions() {
       } else if (answers.decision === "Intern") {
         internQuestions();
       } else if (answers.decision === "Make Team") {
+        fs.appendFile(
+          "./dist/index.html",
+          htmlGen.internCardGen(
+            answers.internName,
+            answers.internId,
+            answers.internEmail,
+            answers.internSchool
+          ),
+          (err) => {
+            if (err) throw err;
+            console.log("Data was appended to file!");
+          }
+        );
       }
     });
-}
-
-function createHtml() {
-  if (managerData.length >= 1) {
-    htmlGen.managerCardGen(
-      managerData[0].name,
-      managerData[0].role,
-      managerData[0].id,
-      managerData[0].email,
-      managerData[0].officeNum
-    );
-  }
-  if (engineerData.length >= 1) {
-    htmlGen.engineerCardGen(
-      engineerData[0].name,
-      engineerData[0].role,
-      engineerData[0].id,
-      engineerData[0].email,
-      engineerData[0].github
-    );
-  }
-  if (internData.length >= 1) {
-    htmlGen.internCardGen(
-      internData[0].name,
-      internData[0].role,
-      internData[0].id,
-      internData[0].email,
-      internData[0].school
-    );
-  }
 }
 
 questions();

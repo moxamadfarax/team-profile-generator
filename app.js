@@ -56,7 +56,6 @@ function questions() {
       } else if (answers.decision === "Intern") {
         internQuestions();
       } else if (answers.decision === "Make Team") {
-        dataPush();
       }
     });
 }
@@ -105,7 +104,6 @@ function engineerQuestions() {
       } else if (answers.decision === "Intern") {
         internQuestions();
       } else if (answers.decision === "Make Team") {
-        dataPush();
       }
     });
 }
@@ -154,17 +152,38 @@ function internQuestions() {
       } else if (answers.decision === "Intern") {
         internQuestions();
       } else if (answers.decision === "Make Team") {
-        dataPush();
       }
     });
 }
 
-function dataPush() {
-  console.log(managerData);
-  console.log(internData);
-  console.log(engineerData);
-  console.log(managerData.length);
-  console.log(internData.length);
-  console.log(engineerData.length);
+function createHtml() {
+  if (managerData.length >= 1) {
+    htmlGen.managerCardGen(
+      managerData[0].name,
+      managerData[0].role,
+      managerData[0].id,
+      managerData[0].email,
+      managerData[0].officeNum
+    );
+  }
+  if (engineerData.length >= 1) {
+    htmlGen.engineerCardGen(
+      engineerData[0].name,
+      engineerData[0].role,
+      engineerData[0].id,
+      engineerData[0].email,
+      engineerData[0].github
+    );
+  }
+  if (internData.length >= 1) {
+    htmlGen.internCardGen(
+      internData[0].name,
+      internData[0].role,
+      internData[0].id,
+      internData[0].email,
+      internData[0].school
+    );
+  }
 }
+
 questions();

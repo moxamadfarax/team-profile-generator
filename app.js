@@ -8,8 +8,6 @@ const Intern = require("./lib/intern");
 const Manager = require("./lib/manager");
 
 let managerData = [];
-let internData = [];
-let engineerData = [];
 
 function questions() {
   inquirer
@@ -43,31 +41,32 @@ function questions() {
         choices: ["Engineer", "Intern", "Make Team"],
       },
     ])
-    .then((answers) => {
+    .then((answers1) => {
       const newManager = new Manager(
-        answers.managerName,
-        answers.managerId,
-        answers.managerEmail,
-        answers.managerOfficeNum
+        answers1.managerName,
+        answers1.managerId,
+        answers1.managerEmail,
+        answers1.managerOfficeNum
       );
       managerData.push(newManager);
-      if (answers.decision === "Engineer") {
+      if (answers1.decision === "Engineer") {
         engineerQuestions();
-      } else if (answers.decision === "Intern") {
+      } else if (answers1.decision === "Intern") {
         internQuestions();
-      } else if (answers.decision === "Make Team") {
+      } else if (answers1.decision === "Make Team") {
         fs.writeFile(
           "./dist/index.html",
           htmlGen.managerCardGen(
-            answers.managerName,
-            answers.managerId,
-            answers.managerEmail,
-            answers.managerOfficeNum
+            answers1.managerName,
+            answers1.managerId,
+            answers1.managerEmail,
+            answers1.managerOfficeNum
           ),
-          (err) =>
-            err
-              ? console.error(err)
-              : console.log("HTML File has been created!")
+
+          (err) => {
+            if (err) throw err;
+            console.log("Data was appended to file!");
+          }
         );
       }
     });
@@ -104,32 +103,36 @@ function engineerQuestions() {
         choices: ["Engineer", "Intern", "Make Team"],
       },
     ])
-    .then((answers) => {
+    .then((answers2) => {
       const newEngineer = new Engineer(
-        answers.engineerName,
-        answers.engineerId,
-        answers.engineerEmail,
-        answers.engineerGithub
+        answers2.engineerName,
+        answers2.engineerId,
+        answers2.engineerEmail,
+        answers2.engineerGithub
       );
-      engineerData.push(newEngineer);
-      if (answers.decision === "Engineer") {
+      if (answers2.decision === "Engineer") {
         engineerQuestions();
-      } else if (answers.decision === "Intern") {
+      } else if (answers2.decision === "Intern") {
         internQuestions();
-      } else if (answers.decision === "Make Team") {
+      } else if (answers2.decision === "Make Team") {
+        makehtml();
         fs.appendFile(
           "./dist/index.html",
           htmlGen.engineerCardGen(
-            answers.engineerName,
-            answers.engineerId,
-            answers.engineerEmail,
-            answers.engineerGithub
+            answers2.engineerName,
+            answers2.engineerId,
+            answers2.engineerEmail,
+            answers2.engineerGithub
           ),
           (err) => {
             if (err) throw err;
             console.log("Data was appended to file!");
           }
         );
+        fs.appendFile("./dist/index.html", endHtml(), (err) => {
+          if (err) throw err;
+          console.log("Data was appended to file!");
+        });
       }
     });
 }
@@ -165,34 +168,58 @@ function internQuestions() {
         choices: ["Engineer", "Intern", "Make Team"],
       },
     ])
-    .then((answers) => {
+    .then((answers3) => {
       const newIntern = new Intern(
-        answers.internName,
-        answers.internId,
-        answers.internEmail,
-        answers.internSchool
+        answers3.internName,
+        answers3.internId,
+        answers3.internEmail,
+        answers3.internSchool
       );
-      internData.push(newIntern);
-      if (answers.decision === "Engineer") {
+      if (answers3.decision === "Engineer") {
         engineerQuestions();
-      } else if (answers.decision === "Intern") {
+      } else if (answers3.decision === "Intern") {
         internQuestions();
-      } else if (answers.decision === "Make Team") {
+      } else if (answers3.decision === "Make Team") {
+        makehtml();
         fs.appendFile(
           "./dist/index.html",
           htmlGen.internCardGen(
-            answers.internName,
-            answers.internId,
-            answers.internEmail,
-            answers.internSchool
+            answers3.internName,
+            answers3.internId,
+            answers3.internEmail,
+            answers3.internSchool
           ),
           (err) => {
             if (err) throw err;
             console.log("Data was appended to file!");
           }
         );
+        fs.appendFile("./dist/index.html", endHtml(), (err) => {
+          if (err) throw err;
+          console.log("Data was appended to file!");
+        });
       }
     });
 }
-
+function makehtml() {
+  fs.writeFile(
+    "./dist/index.html",
+    htmlGen.managerCardGen(
+      managerData[0].name,
+      managerData[0].id,
+      managerData[0].email,
+      managerData[0].officeNum
+    ),
+    (err) => {
+      if (err) throw err;
+      console.log("Data was appended to file!");
+    }
+  );
+}
+function endHtml() {
+  return `
+  </main>
+  </body>
+  </html>`;
+}
 questions();

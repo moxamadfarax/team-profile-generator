@@ -13,7 +13,7 @@ https://github.com/moxamadfarax/team-profile-generator
 
 - This is a screenshot of what is generated.
 
-  ![Getting Started](assets/screenshot.PNG)
+  ![Getting Started](assets/screenshot1.PNG)
 
 ## Table of Contents
 

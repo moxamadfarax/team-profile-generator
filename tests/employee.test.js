@@ -30,7 +30,7 @@ test("Can get email with getEmail()", () => {
   const newEmployee = new Employee("mohamedfarah0508@gmail.com", 3321, email);
   expect(newEmployee.getEmail()).toEqual(email);
 });
-test("Can return role with getRole", () => {
+test("Can return role with getRole()", () => {
   const role = "Employee";
   const newEmployee = new Employee();
   expect(newEmployee.getRole()).toEqual(role);

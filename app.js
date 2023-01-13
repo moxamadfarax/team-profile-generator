@@ -1,12 +1,9 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
-const cssGen = require("./src/genCSS");
 const htmlGen = require("./src/genHTML");
-const cssResetGen = require("./src/getCSSreset");
 const Engineer = require("./lib/engineer");
 const Intern = require("./lib/intern");
 const Manager = require("./lib/manager");
-
 let managerData = [];
 
 function questions() {
@@ -48,26 +45,28 @@ function questions() {
         answers1.managerEmail,
         answers1.managerOfficeNum
       );
+      fs.writeFile(
+        "./dist/index.html",
+        htmlGen.managerCardGen(
+          answers1.managerName,
+          answers1.managerId,
+          answers1.managerEmail,
+          answers1.managerOfficeNum
+        ),
+        (err) => {
+          if (err) throw err;
+        }
+      );
       managerData.push(newManager);
       if (answers1.decision === "Engineer") {
         engineerQuestions();
       } else if (answers1.decision === "Intern") {
         internQuestions();
       } else if (answers1.decision === "Make Team") {
-        fs.writeFile(
-          "./dist/index.html",
-          htmlGen.managerCardGen(
-            answers1.managerName,
-            answers1.managerId,
-            answers1.managerEmail,
-            answers1.managerOfficeNum
-          ),
-
-          (err) => {
-            if (err) throw err;
-            console.log("Data was appended to file!");
-          }
-        );
+        console.log("All done!");
+        fs.appendFile("./dist/index.html", htmlGen.endHtml(), (err) => {
+          if (err) throw err;
+        });
       }
     });
 }
@@ -110,28 +109,26 @@ function engineerQuestions() {
         answers2.engineerEmail,
         answers2.engineerGithub
       );
+      fs.appendFile(
+        "./dist/index.html",
+        htmlGen.engineerCardGen(
+          answers2.engineerName,
+          answers2.engineerId,
+          answers2.engineerEmail,
+          answers2.engineerGithub
+        ),
+        (err) => {
+          if (err) throw err;
+        }
+      );
       if (answers2.decision === "Engineer") {
         engineerQuestions();
       } else if (answers2.decision === "Intern") {
         internQuestions();
       } else if (answers2.decision === "Make Team") {
-        makehtml();
-        fs.appendFile(
-          "./dist/index.html",
-          htmlGen.engineerCardGen(
-            answers2.engineerName,
-            answers2.engineerId,
-            answers2.engineerEmail,
-            answers2.engineerGithub
-          ),
-          (err) => {
-            if (err) throw err;
-            console.log("Data was appended to file!");
-          }
-        );
-        fs.appendFile("./dist/index.html", endHtml(), (err) => {
+        console.log("All done!");
+        fs.appendFile("./dist/index.html", htmlGen.endHtml(), (err) => {
           if (err) throw err;
-          console.log("Data was appended to file!");
         });
       }
     });
@@ -175,51 +172,29 @@ function internQuestions() {
         answers3.internEmail,
         answers3.internSchool
       );
+      fs.appendFile(
+        "./dist/index.html",
+        htmlGen.internCardGen(
+          answers3.internName,
+          answers3.internId,
+          answers3.internEmail,
+          answers3.internSchool
+        ),
+        (err) => {
+          if (err) throw err;
+        }
+      );
       if (answers3.decision === "Engineer") {
         engineerQuestions();
       } else if (answers3.decision === "Intern") {
         internQuestions();
       } else if (answers3.decision === "Make Team") {
-        makehtml();
-        fs.appendFile(
-          "./dist/index.html",
-          htmlGen.internCardGen(
-            answers3.internName,
-            answers3.internId,
-            answers3.internEmail,
-            answers3.internSchool
-          ),
-          (err) => {
-            if (err) throw err;
-            console.log("Data was appended to file!");
-          }
-        );
-        fs.appendFile("./dist/index.html", endHtml(), (err) => {
+        fs.appendFile("./dist/index.html", htmlGen.endHtml(), (err) => {
+          console.log("All done!");
           if (err) throw err;
-          console.log("Data was appended to file!");
         });
       }
     });
 }
-function makehtml() {
-  fs.writeFile(
-    "./dist/index.html",
-    htmlGen.managerCardGen(
-      managerData[0].name,
-      managerData[0].id,
-      managerData[0].email,
-      managerData[0].officeNum
-    ),
-    (err) => {
-      if (err) throw err;
-      console.log("Data was appended to file!");
-    }
-  );
-}
-function endHtml() {
-  return `
-  </main>
-  </body>
-  </html>`;
-}
+
 questions();

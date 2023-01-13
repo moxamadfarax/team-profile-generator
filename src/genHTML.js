@@ -96,7 +96,7 @@ function internCardGen(name, id, email, school) {
       <br />
       <li>
         <h4>
-          Email Adress : <a href="mailto${email}">${email}</a>
+          Email Adress : <a href="mailto:${email}">${email}</a>
         </h4>
       </li>
       <br />
@@ -106,8 +106,15 @@ function internCardGen(name, id, email, school) {
   </div>
 </div>`;
 }
+function endHtml() {
+  return `
+  </main>
+  </body>
+  </html>`;
+}
 module.exports = {
   managerCardGen,
   engineerCardGen,
   internCardGen,
+  endHtml,
 };

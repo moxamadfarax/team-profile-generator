@@ -15,6 +15,10 @@ https://github.com/moxamadfarax/team-profile-generator
 
   ![Getting Started](assets/screenshot1.PNG)
 
+- The link below is a demo video showing how the application works.
+
+  https://drive.google.com/file/d/1Uqjp0mzGXJNeS3LmIU7lWuwZbf2nNcUK/view
+
 ## Table of Contents
 
 - [Installation](#installation)
